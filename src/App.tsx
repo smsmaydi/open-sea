@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import { SeaAudio } from './audio/sounds'
 import { initialCopy, islands, readHour, storeHour, useLocale, type Hour, type Locale } from './data/content'
 import { Input } from './experience/Input'
-import { FOG } from './experience/settings'
+import { FOG, readQuality } from './experience/settings'
 import { Hud, type HudHandle } from './ui/Hud'
 import { SeaWorld, type SeaHandle } from './world/SeaWorld'
 
@@ -13,6 +13,7 @@ import { SeaWorld, type SeaHandle } from './world/SeaWorld'
  * The 3D world reports focus, radar, and nearby islands through refs so sailing does not rerender the overlay.
  */
 export function App() {
+  const quality = useMemo(readQuality, [])
   const input = useMemo(() => new Input(), [])
   const audio = useMemo(() => new SeaAudio(), [])
   const hud = useRef<HudHandle>(null)
@@ -80,10 +81,11 @@ export function App() {
       <Canvas
         className="sea-view"
         shadows
-        dpr={[1, 1.75]}
+        dpr={quality.dpr}
         camera={{ fov: 50, near: 0.1, far: 900, position: [0, 8, 18] }}
         gl={{
           antialias: true,
+          powerPreference: quality.phone ? 'default' : 'high-performance',
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.08,
         }}

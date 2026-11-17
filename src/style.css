@@ -568,14 +568,42 @@ kbd {
 }
 
 @media (max-width: 760px) {
-  .sound-dock { top: 14px; left: 14px; }
-  .corner { top: 14px; right: 14px; }
+  .sound-dock { top: max(14px, env(safe-area-inset-top)); left: max(14px, env(safe-area-inset-left)); }
+  .corner { top: max(14px, env(safe-area-inset-top)); right: max(14px, env(safe-area-inset-right)); }
   .hints { display: none; }
+  .stick {
+    width: 112px;
+    height: 112px;
+    left: max(14px, env(safe-area-inset-left));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .stick-knob {
+    width: 48px;
+    height: 48px;
+    margin: -24px 0 0 -24px;
+  }
+  .fire-touch,
+  .enter-touch {
+    right: max(14px, env(safe-area-inset-right));
+  }
+  .fire-touch {
+    width: 68px;
+    height: 68px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .enter-touch {
+    width: 72px;
+    height: 72px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .hud.is-near .fire-touch {
+    bottom: max(104px, calc(env(safe-area-inset-bottom) + 84px));
+  }
   .radar {
-    width: 92px;
-    height: 92px;
-    top: 64px;
-    right: 14px;
+    width: 84px;
+    height: 84px;
+    top: 78px;
+    right: max(14px, env(safe-area-inset-right));
     bottom: auto;
   }
   .panel {
@@ -590,6 +618,14 @@ kbd {
   }
   .panel.is-open { transform: none; }
   .touch { display: block; }
+}
+
+@media (max-width: 760px) and (max-height: 480px) {
+  .stick { width: 84px; height: 84px; }
+  .stick-knob { width: 36px; height: 36px; margin: -18px 0 0 -18px; }
+  .fire-touch,
+  .enter-touch { width: 56px; height: 56px; }
+  .radar { width: 68px; height: 68px; top: 58px; }
 }
 
 @media (pointer: coarse) {

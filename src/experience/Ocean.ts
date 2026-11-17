@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Water } from 'three/addons/objects/Water.js'
 import { curveUniforms } from './curve'
-import { motionScale } from './settings'
+import { motionScale, readQuality } from './settings'
 import { WAVE_GLSL } from './waves'
 
 const SHORE_SLOTS = 24
@@ -35,14 +35,14 @@ export class Ocean {
   private readonly shores: THREE.Vector3[]
 
   constructor() {
-    const mobile = window.innerWidth < 800
-    const segments = mobile ? 110 : 200
+    const quality = readQuality()
+    const segments = quality.waterSegments
     const geometry = new THREE.PlaneGeometry(840, 840, segments, segments)
     this.shores = Array.from({ length: SHORE_SLOTS }, () => new THREE.Vector3(0, 0, -1))
 
     this.mesh = new Water(geometry, {
-      textureWidth: 512,
-      textureHeight: 512,
+      textureWidth: quality.waterTexture,
+      textureHeight: quality.waterTexture,
       waterNormals: exampleWaterNormals(),
       sunDirection: new THREE.Vector3(),
       sunColor: 0xffffff,

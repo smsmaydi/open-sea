@@ -18,7 +18,7 @@ import { Dressing } from '../experience/Dressing'
 import { Input } from '../experience/Input'
 import { Island, type WorldProp } from '../experience/Island'
 import { Ocean } from '../experience/Ocean'
-import { FOG } from '../experience/settings'
+import { FOG, readQuality } from '../experience/settings'
 import { Ship, clampAim } from '../experience/Ship'
 import type { RadarMark } from '../ui/Hud'
 
@@ -164,6 +164,7 @@ export const SeaWorld = forwardRef<SeaHandle, SeaWorldProps>(function SeaWorld(p
   const scene = useThree((state) => state.scene)
   const gl = useThree((state) => state.gl)
   const world = useMemo(createWorld, [])
+  const shadowMap = useMemo(() => readQuality().shadowMap, [])
   const propsRef = useRef(props)
   propsRef.current = props
   const focusedRef = useRef(focusedId)
@@ -282,7 +283,7 @@ export const SeaWorld = forwardRef<SeaHandle, SeaWorldProps>(function SeaWorld(p
   useEffect(() => {
     const fit = () => {
       const narrow = window.innerWidth < 760
-      camera.fov = narrow ? 60 : 50
+      camera.fov = narrow ? 52 : 50
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
     }
@@ -488,10 +489,10 @@ export const SeaWorld = forwardRef<SeaHandle, SeaWorldProps>(function SeaWorld(p
     state.pitch += (state.targetPitch - state.pitch) * blend
 
     const narrow = window.innerWidth < 760
-    const distance = narrow ? 11.5 : 13.2
-    const height = narrow ? 7.4 : 6.3
-    const lookAhead = narrow ? 2.6 : 4.4
-    const lookHeight = narrow ? 1.9 : 2.1
+    const distance = narrow ? 11.2 : 13.2
+    const height = narrow ? 6.8 : 6.3
+    const lookAhead = narrow ? 1.15 : 4.4
+    const lookHeight = narrow ? 2.7 : 2.1
     const yaw = world.ship.yaw
     const fx = Math.sin(yaw)
     const fz = Math.cos(yaw)
@@ -561,8 +562,8 @@ export const SeaWorld = forwardRef<SeaHandle, SeaWorldProps>(function SeaWorld(p
         color={dusk ? '#ffc08a' : '#fff1d4'}
         intensity={dusk ? 2.15 : 2.55}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        shadow-mapSize-width={shadowMap}
+        shadow-mapSize-height={shadowMap}
         shadow-bias={-0.0004}
         shadow-normalBias={0.04}
         shadow-camera-left={-48}
