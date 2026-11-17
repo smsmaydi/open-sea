@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0c3a52" />
+    <title>Open Sea — Portfolio</title>
+    <script>
+      (function () {
+        var stored = localStorage.getItem('open-sea-locale')
+        var german = stored === 'de' || (!stored && navigator.language.toLowerCase().indexOf('de') === 0)
+        document.documentElement.lang = german ? 'de' : 'en'
+        document.title = german ? 'Offene See — Portfolio' : 'Open Sea — Portfolio'
+      })()
+    </script>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230c3a52' width='32' height='32' rx='6'/%3E%3Cpath fill='%23e0b15a' d='M16 3l2.2 8.2L26.5 13l-6.6 4.6L22.2 26 16 21.2 9.8 26l2.3-8.4L5.5 13l8.3-1.8z'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,700&family=Outfit:wght@380;520;650&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This portfolio is a 3D world. JavaScript is required.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
