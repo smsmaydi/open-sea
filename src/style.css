@@ -251,10 +251,10 @@ kbd {
   opacity: 0;
 }
 
-.prompt,
 .toast {
   position: absolute;
   left: 50%;
+  bottom: 78px;
   transform: translateX(-50%) translateY(8px);
   opacity: 0;
   padding: 10px 16px;
@@ -268,22 +268,9 @@ kbd {
   white-space: nowrap;
 }
 
-.prompt {
-  bottom: 28px;
-}
-
-.toast {
-  bottom: 78px;
-}
-
-.prompt.is-on,
 .toast.is-on {
   opacity: 1;
   transform: translateX(-50%);
-}
-
-.hud.is-focused .prompt {
-  opacity: 0;
 }
 
 .radar {
@@ -504,20 +491,33 @@ kbd {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
-.pad {
+.stick {
   position: absolute;
-  left: 16px;
-  bottom: 16px;
-  display: grid;
-  grid-template-columns: repeat(3, 52px);
-  grid-template-rows: repeat(3, 52px);
-  gap: 6px;
+  left: 18px;
+  bottom: 22px;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: rgba(8, 28, 42, 0.38);
+  border: 2px solid rgba(246, 241, 230, 0.35);
+  box-shadow: inset 0 0 0 10px rgba(8, 28, 42, 0.28);
+  pointer-events: auto;
+  touch-action: none;
 }
 
-.up { grid-column: 2; grid-row: 1; }
-.left { grid-column: 1; grid-row: 2; }
-.down { grid-column: 2; grid-row: 3; }
-.right { grid-column: 3; grid-row: 2; }
+.stick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-radius: 50%;
+  background: rgba(18, 42, 58, 0.94);
+  border: 1px solid rgba(246, 241, 230, 0.55);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  pointer-events: none;
+}
 
 .enter-touch,
 .fire-touch {
@@ -577,12 +577,6 @@ kbd {
     top: 64px;
     right: 14px;
     bottom: auto;
-  }
-  .prompt {
-    bottom: 118px;
-    max-width: calc(100vw - 24px);
-    white-space: normal;
-    text-align: center;
   }
   .panel {
     top: auto;

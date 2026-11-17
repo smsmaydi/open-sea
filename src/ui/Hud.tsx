@@ -15,7 +15,7 @@ export type RadarMark = {
  * `setNear` holds the island the ship can enter, or null when none is in range.
  */
 export type HudHandle = {
-  /** @param island - The island beside the ship, or null to hide the prompt. */
+  /** @param island - The island beside the ship, or null when none is in range. Shows the mobile Land button. */
   setNear: (island: IslandContent | null) => void
   /** @param text - Short message shown for about two seconds. */
   flash: (text: string) => void
@@ -160,7 +160,6 @@ export const Hud = forwardRef<HudHandle, HudProps>(function Hud(
   ref,
 ) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const promptRef = useRef<HTMLDivElement>(null)
   const toastRef = useRef<HTMLDivElement>(null)
   const radarRef = useRef<HTMLCanvasElement>(null)
   const aimRef = useRef<HTMLDivElement>(null)
@@ -168,11 +167,8 @@ export const Hud = forwardRef<HudHandle, HudProps>(function Hud(
 
   useImperativeHandle(ref, () => ({
     setNear(island) {
-      const prompt = promptRef.current
       const root = rootRef.current
-      if (!prompt || !root) return
-      prompt.classList.toggle('is-on', Boolean(island))
-      prompt.textContent = island ? copy.near(island.title) : ''
+      if (!root) return
       root.classList.toggle('is-near', Boolean(island))
     },
     flash(text) {
@@ -258,7 +254,6 @@ export const Hud = forwardRef<HudHandle, HudProps>(function Hud(
           </span>
         ))}
       </div>
-      <div ref={promptRef} className="prompt" aria-live="polite" />
       <div ref={toastRef} className="toast" role="status" />
       <canvas ref={radarRef} className="radar" width={148} height={148} />
       <aside className={focused ? 'panel is-open' : 'panel'} aria-hidden={focused ? 'false' : 'true'}>
@@ -346,10 +341,90 @@ function IslandPanel({ island, copy, onExit }: PanelProps) {
 
 type TouchProps = {
   copy: UiCopy
-  /** Receives the virtual arrow keys while a pad button is held. */
+  /** Receives the stick axes while a finger is dragging it. */
   input: Input
   onEnter: () => void
   onFire: () => void
+}
+
+/**
+ * A held stick, like a controller's left analog.
+ * Drag distance sets speed and turn. Releasing it springs back to the center.
+ * @param input - Sail input. The stick writes axes in -1..1.
+ * @param label - Accessible name.
+ */
+function SteerStick({ input, label }: { input: Input; label: string }) {
+  const base = useRef<HTMLDivElement>(null)
+  const knob = useRef<HTMLDivElement>(null)
+  const active = useRef<number | null>(null)
+
+  const place = (clientX: number, clientY: number) => {
+    const el = base.current
+    const knobEl = knob.current
+    if (!el || !knobEl) return
+    const rect = el.getBoundingClientRect()
+    const max = rect.width * 0.32
+    let dx = clientX - (rect.left + rect.width / 2)
+    let dy = clientY - (rect.top + rect.height / 2)
+    const len = Math.hypot(dx, dy)
+    if (len > max && len > 0) {
+      dx = (dx / len) * max
+      dy = (dy / len) * max
+    }
+    knobEl.style.transform = `translate(${dx}px, ${dy}px)`
+    const nx = max > 0 ? dx / max : 0
+    const ny = max > 0 ? -dy / max : 0
+    const mag = Math.hypot(nx, ny)
+    const dead = 0.18
+    if (mag < dead) input.setStick(0, 0)
+    else {
+      const shaped = (mag - dead) / (1 - dead)
+      input.setStick((nx / mag) * shaped, (ny / mag) * shaped)
+    }
+  }
+
+  const release = () => {
+    active.current = null
+    if (knob.current) knob.current.style.transform = 'translate(0px, 0px)'
+    input.setStick(0, 0)
+  }
+
+  return (
+    <div
+      ref={base}
+      className="stick"
+      role="group"
+      aria-label={label}
+      onPointerDown={(event) => {
+        event.preventDefault()
+        active.current = event.pointerId
+        try {
+          event.currentTarget.setPointerCapture(event.pointerId)
+        } catch {
+          // The stick still follows this gesture if capture is refused.
+        }
+        place(event.clientX, event.clientY)
+      }}
+      onPointerMove={(event) => {
+        if (active.current !== event.pointerId) return
+        place(event.clientX, event.clientY)
+      }}
+      onPointerUp={(event) => {
+        if (active.current !== event.pointerId) return
+        release()
+      }}
+      onPointerCancel={(event) => {
+        if (active.current !== event.pointerId) return
+        release()
+      }}
+      onLostPointerCapture={() => {
+        if (active.current === null) return
+        release()
+      }}
+    >
+      <div ref={knob} className="stick-knob" />
+    </div>
+  )
 }
 
 /**
@@ -358,41 +433,12 @@ type TouchProps = {
  */
 function TouchControls({ copy, input, onEnter, onFire }: TouchProps) {
   const repeat = useRef(0)
-  const pads: [string, string, string, string][] = [
-    ['ArrowUp', 'up', '▲', copy.forward],
-    ['ArrowLeft', 'left', '◀', copy.left],
-    ['ArrowDown', 'down', '▼', copy.reverse],
-    ['ArrowRight', 'right', '▶', copy.right],
-  ]
 
   useEffect(() => () => window.clearInterval(repeat.current), [])
 
   return (
     <div className="touch">
-      <div className="pad">
-        {pads.map(([code, name, glyph, label]) => (
-          <button
-            key={code}
-            type="button"
-            className={name}
-            aria-label={label}
-            onPointerDown={(event) => {
-              event.preventDefault()
-              try {
-                event.currentTarget.setPointerCapture(event.pointerId)
-              } catch {
-                // The key still counts if capture is refused.
-              }
-              input.setHeld(code, true)
-            }}
-            onPointerUp={() => input.setHeld(code, false)}
-            onPointerCancel={() => input.setHeld(code, false)}
-            onLostPointerCapture={() => input.setHeld(code, false)}
-          >
-            {glyph}
-          </button>
-        ))}
-      </div>
+      <SteerStick input={input} label={copy.steer} />
       <button
         type="button"
         className="fire-touch"

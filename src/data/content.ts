@@ -1,5 +1,5 @@
 // Personal copy lives here, in English and German.
-// Swap the draft lines for your name, work, and links.
+// The facts come from Safa Aydin's CV. Home address, birth date, and marital status stay off the public islands.
 
 export type Locale = 'en' | 'de'
 
@@ -70,6 +70,7 @@ export type UiCopy = {
   volume: string
   land: string
   forward: string
+  steer: string
   left: string
   reverse: string
   right: string
@@ -106,7 +107,7 @@ type IslandSource = {
   ground: IslandContent['ground']
 }
 
-export const SHOW_DRAFT_NOTE = true
+export const SHOW_DRAFT_NOTE = false
 
 const STORAGE_KEY = 'open-sea-locale'
 
@@ -121,19 +122,19 @@ const sources: IslandSource[] = [
     id: 'about',
     kind: 'about',
     title: { en: 'About', de: 'Über mich' },
-    eyebrow: { en: 'The Captain', de: 'Der Kapitän' },
+    eyebrow: { en: 'Safa Aydin', de: 'Safa Aydin' },
     summary: {
-      en: 'Your harbor. Your name, your work, and the way you sail.',
-      de: 'Dein Hafen. Dein Name, deine Arbeit und wie du segelst.',
+      en: 'AI-driven software developer, focused on frontend work in React, TypeScript, and Vite.',
+      de: 'AI-getriebener Softwareentwickler mit Schwerpunkt Frontend in React, TypeScript und Vite.',
     },
     paragraphs: [
       {
-        en: 'This island is a short biography. A few lines are enough: who you are, what you work on, and the kind of work you leave behind.',
-        de: 'Diese Insel ist eine kurze Biografie. Ein paar Zeilen reichen: wer du bist, woran du arbeitest und was du hinterlässt.',
+        en: 'I use AI tools for implementation, debugging, and code review, and I check the results before they stay. I also build with WordPress, write my own HTML, CSS, and JavaScript, and work on SEO and GEO.',
+        de: 'KI-Werkzeuge setze ich in Implementierung, Debugging und Code-Review ein und prüfe die Ergebnisse, bevor sie bleiben. Dazu kommen WordPress, eigene Komponenten in HTML, CSS und JavaScript sowie SEO- und GEO-Optimierung.',
       },
       {
-        en: 'A portrait can hang on the cottage if you want one. The frame by the door is waiting.',
-        de: 'Ein Porträt kann an der Hütte hängen, wenn du eins möchtest. Der Rahmen an der Tür wartet.',
+        en: 'I live in Dortmund and study computer science at TU Dortmund. The bachelor thesis, Cryptography Made Interactive, is a set of learning tools in React and Vite.',
+        de: 'Ich lebe in Dortmund und studiere Informatik an der TU Dortmund. Die Bachelorarbeit Cryptography Made Interactive ist eine Reihe von Lernwerkzeugen in React und Vite.',
       },
     ],
     position: [0, -44],
@@ -147,22 +148,77 @@ const sources: IslandSource[] = [
     title: { en: 'Projects', de: 'Projekte' },
     eyebrow: { en: 'Plunder', de: 'Beute' },
     summary: {
-      en: 'The work you have brought back, chest by chest.',
-      de: 'Die Arbeit, die du zurückgebracht hast, Truhe für Truhe.',
+      en: 'Learning tools from the thesis, and two games from the software internship.',
+      de: 'Lernwerkzeuge aus der Bachelorarbeit und zwei Spiele aus dem Softwarepraktikum.',
     },
     paragraphs: [
       {
-        en: 'Each project is a card: a name, a year, one clear line, and a link.',
-        de: 'Jedes Projekt ist eine Karte: Name, Jahr, ein klarer Satz und ein Link.',
+        en: 'The thesis tools sit beside the lecture slides. The games came out of the practical course at TU Dortmund.',
+        de: 'Die Werkzeuge der Thesis begleiten die Vorlesungsfolien. Die Spiele sind im Praktikum an der TU Dortmund entstanden.',
       },
     ],
     entries: [
       {
-        title: { en: 'Sample project', de: 'Beispielprojekt' },
-        meta: { en: 'Year · Role', de: 'Jahr · Rolle' },
+        title: { en: 'Mode of Operation', de: 'Mode of Operation' },
+        meta: { en: 'React, React Flow, crypto-js, Web Crypto API', de: 'React, React Flow, crypto-js, Web Crypto API' },
+        href: 'https://github.com/smsmaydi/mode-of-operation',
         text: {
-          en: 'This chest is only here so you can see the shape. It will be replaced with your own work.',
-          de: 'Diese Truhe zeigt nur die Form. Sie wird durch deine eigene Arbeit ersetzt.',
+          en: 'Shows the data flow of ECB, CBC, and CTR, with blocks for plaintext, key, and initialization vector. It includes XOR and AES, an image mode, and a download of the encrypted file.',
+          de: 'Zeigt den Datenfluss von ECB, CBC und CTR, mit Knoten für Klartext, Schlüssel und Initialisierungsvektor. Dazu XOR und AES, ein Bildmodus und der Download der verschlüsselten Datei.',
+        },
+      },
+      {
+        title: { en: 'RSA', de: 'RSA' },
+        meta: { en: 'React, Vite', de: 'React, Vite' },
+        href: 'https://github.com/smsmaydi/RSA',
+        text: {
+          en: 'Builds keys from primes with BigInt and derives the private exponent with the extended Euclidean algorithm, including the division steps. Encryption and decryption run through a numeric example.',
+          de: 'Erzeugt Schlüssel aus Primzahlen mit BigInt und leitet den privaten Exponenten über den erweiterten euklidischen Algorithmus her, inklusive der Divisionsschritte. Ver- und Entschlüsselung laufen an einem Zahlenbeispiel.',
+        },
+      },
+      {
+        title: { en: 'Diffie-Hellman', de: 'Diffie-Hellman' },
+        meta: { en: 'React, Vite', de: 'React, Vite' },
+        href: 'https://github.com/smsmaydi/DHKE',
+        text: {
+          en: 'Walks through the key exchange step by step, checks that the parameters are prime, and asks you to find the shared secret yourself.',
+          de: 'Stellt den Schlüsselaustausch Schritt für Schritt dar, prüft die Parameter auf Primzahleigenschaft und lässt das gemeinsame Geheimnis selbst ermitteln.',
+        },
+      },
+      {
+        title: { en: 'Caesar Cipher', de: 'Caesar-Cipher' },
+        meta: { en: 'React, Vite', de: 'React, Vite' },
+        href: 'https://github.com/smsmaydi/Caesar-cipher',
+        text: {
+          en: 'Encrypts and decrypts with an alphabet wheel, plus a brute-force pass over all 26 shifts. Input is limited to Latin letters.',
+          de: 'Ver- und Entschlüsselung über ein Alphabetrad, ergänzt um einen Brute-Force-Modus über alle 26 Verschiebungen. Die Eingabe ist auf lateinische Buchstaben begrenzt.',
+        },
+      },
+      {
+        title: { en: 'Password Strength Check', de: 'Password Strength Check' },
+        meta: { en: 'React, Vite, zxcvbn', de: 'React, Vite, zxcvbn' },
+        href: 'https://github.com/smsmaydi/Password-Strength-Check',
+        text: {
+          en: 'Estimates strength with zxcvbn and breaks the score into dictionary, keyboard path, sequence, repeat, and date. Dictionary hits link to the word list behind them.',
+          de: 'Schätzt die Stärke mit zxcvbn und schlüsselt die Bewertung nach Wörterbuch, Tastaturpfad, Sequenz, Wiederholung und Datum auf. Wörterbuchtreffer verlinken auf die zugrunde liegende Wortliste.',
+        },
+      },
+      {
+        title: { en: 'Zooloretto', de: 'Zooloretto' },
+        meta: { en: 'Kotlin, JavaFX, kotlinx.serialization', de: 'Kotlin, JavaFX, kotlinx.serialization' },
+        href: 'https://github.com/smsmaydi/Zooloretto',
+        text: {
+          en: 'A board game for two to five players, with save games and a high score. The computer opponent uses the Maxⁿ algorithm.',
+          de: 'Brettspiel für zwei bis fünf Personen, mit Speicherstand und Highscore. Der Computergegner basiert auf dem Maxⁿ-Algorithmus.',
+        },
+      },
+      {
+        title: { en: 'Schwimmen', de: 'Schwimmen' },
+        meta: { en: 'Kotlin, BGW-GUI, JUnit', de: 'Kotlin, BGW-GUI, JUnit' },
+        href: 'https://github.com/smsmaydi/Schwimmen',
+        text: {
+          en: 'A card game for two to four players, with card logic, game state, and interface kept apart. The game logic is tested with JUnit.',
+          de: 'Kartenspiel für zwei bis vier Personen. Kartenlogik, Spielzustand und Oberfläche sind getrennt. Die Spiellogik ist mit JUnit getestet.',
         },
       },
     ],
@@ -177,14 +233,28 @@ const sources: IslandSource[] = [
     title: { en: 'Skills', de: 'Fähigkeiten' },
     eyebrow: { en: 'The Craft', de: 'Das Handwerk' },
     summary: {
-      en: 'The tools and the work you are strongest at.',
-      de: 'Die Werkzeuge und die Arbeit, in der du am stärksten bist.',
+      en: 'Languages, libraries, and the way the work is put together.',
+      de: 'Sprachen, Bibliotheken und die Art, wie die Arbeit zusammengesetzt wird.',
     },
     paragraphs: [
       {
-        en: 'The gems are decoration. The real list will be the craft you name.',
-        de: 'Die Edelsteine sind Schmuck. Die echte Liste ist das Handwerk, das du nennst.',
+        en: 'Component architecture, connecting REST APIs, SEO and GEO, and working with design and specialist teams.',
+        de: 'Komponentenarchitektur, REST-API-Anbindung, SEO und GEO, und die Zusammenarbeit mit Design und Fachabteilungen.',
       },
+    ],
+    tags: [
+      { en: 'TypeScript', de: 'TypeScript' },
+      { en: 'JavaScript', de: 'JavaScript' },
+      { en: 'React', de: 'React' },
+      { en: 'Vite', de: 'Vite' },
+      { en: 'HTML & CSS', de: 'HTML & CSS' },
+      { en: 'WordPress', de: 'WordPress' },
+      { en: 'Kotlin', de: 'Kotlin' },
+      { en: 'Java', de: 'Java' },
+      { en: 'Python', de: 'Python' },
+      { en: 'VHDL', de: 'VHDL' },
+      { en: 'Git', de: 'Git' },
+      { en: 'SEO / GEO', de: 'SEO / GEO' },
     ],
     position: [-71, -13],
     radius: 10,
@@ -197,13 +267,34 @@ const sources: IslandSource[] = [
     title: { en: 'Languages', de: 'Sprachen' },
     eyebrow: { en: 'Tongues', de: 'Zungen' },
     summary: {
-      en: 'The languages you speak, and the ones you write in.',
-      de: 'Die Sprachen, die du sprichst, und die, in denen du schreibst.',
+      en: 'German and English at C1, Turkish from home.',
+      de: 'Deutsch und Englisch auf C1, Türkisch als Muttersprache.',
     },
-    paragraphs: [
+    paragraphs: [],
+    entries: [
       {
-        en: 'Tell me each language and how well you hold it. The banners will take their colors from that list.',
-        de: 'Nenn mir jede Sprache und wie sicher du sie beherrschst. Die Banner nehmen ihre Farben von dieser Liste.',
+        title: { en: 'German', de: 'Deutsch' },
+        meta: { en: 'C1', de: 'C1' },
+        text: {
+          en: 'Fluent in speech and writing.',
+          de: 'Fließend in Wort und Schrift.',
+        },
+      },
+      {
+        title: { en: 'English', de: 'Englisch' },
+        meta: { en: 'C1', de: 'C1' },
+        text: {
+          en: 'Fluent in speech and writing.',
+          de: 'Fließend in Wort und Schrift.',
+        },
+      },
+      {
+        title: { en: 'Turkish', de: 'Türkisch' },
+        meta: { en: 'Native', de: 'Muttersprache' },
+        text: {
+          en: 'First language.',
+          de: 'Erste Sprache.',
+        },
       },
     ],
     position: [-59, 34],
@@ -217,15 +308,16 @@ const sources: IslandSource[] = [
     title: { en: 'GitHub', de: 'GitHub' },
     eyebrow: { en: 'The Yard', de: 'Die Werft' },
     summary: {
-      en: 'Where the code is moored. Your profile, and the repos you want seen.',
-      de: 'Wo der Code vertäut liegt. Dein Profil und die Repos, die gesehen werden sollen.',
+      en: 'The public profile, and the repositories behind the other islands.',
+      de: 'Das öffentliche Profil und die Repositories hinter den anderen Inseln.',
     },
     paragraphs: [
       {
-        en: 'Give me the profile link and, if you like, three repos to pin on the dock.',
-        de: 'Gib mir den Profil-Link und, wenn du magst, drei Repos für den Steg.',
+        en: 'The thesis tools and the two Kotlin games are in separate repositories under this account.',
+        de: 'Die Lernwerkzeuge der Thesis und die beiden Kotlin-Spiele liegen in eigenen Repositories unter diesem Account.',
       },
     ],
+    links: [{ label: 'github.com/smsmaydi', href: 'https://github.com/smsmaydi' }],
     position: [-25, 70],
     radius: 9,
     accent: '#8ee0b8',
@@ -237,22 +329,25 @@ const sources: IslandSource[] = [
     title: { en: 'Education', de: 'Ausbildung' },
     eyebrow: { en: 'The Academy', de: 'Die Akademie' },
     summary: {
-      en: 'Schools, courses, and what they taught you to notice.',
-      de: 'Schulen, Kurse und was sie dich gelehrt haben zu sehen.',
+      en: 'Computer science in Dortmund, and the Abitur in Istanbul.',
+      de: 'Informatik in Dortmund und das Abitur in Istanbul.',
     },
-    paragraphs: [
-      {
-        en: 'Each stop is a line in the log: place, years, and one thing it left you with.',
-        de: 'Jeder Halt ist eine Zeile im Logbuch: Ort, Jahre und eine Sache, die geblieben ist.',
-      },
-    ],
+    paragraphs: [],
     entries: [
       {
-        title: { en: 'Sample study', de: 'Beispielstudium' },
-        meta: { en: 'School · Years', de: 'Schule · Jahre' },
+        title: { en: 'B.Sc. Computer Science', de: 'B.Sc. Informatik' },
+        meta: { en: 'TU Dortmund · 09/2019 – 06/2026', de: 'TU Dortmund · 09/2019 – 06/2026' },
         text: {
-          en: 'A placeholder berth. Your real studies will take the shelf.',
-          de: 'Ein Platzhalter. Dein wirkliches Studium kommt auf das Bord.',
+          en: 'The thesis, Cryptography Made Interactive, builds learning tools that sit with the lecture slides. They are written in React and Vite, with a clear split between logic and presentation.',
+          de: 'Die Bachelorarbeit Cryptography Made Interactive baut Lernwerkzeuge, die die Vorlesungsfolien begleiten. Sie sind in React und Vite umgesetzt, mit einer klaren Trennung von Logik und Darstellung.',
+        },
+      },
+      {
+        title: { en: 'Abitur', de: 'Allgemeine Hochschulreife' },
+        meta: { en: 'Kuleli Military High School, Istanbul · 08/2012 – 07/2016', de: 'Kuleli Militärisches Gymnasium, Istanbul · 08/2012 – 07/2016' },
+        text: {
+          en: 'General higher-education entrance qualification.',
+          de: 'Allgemeine Hochschulreife.',
         },
       },
     ],
@@ -267,15 +362,16 @@ const sources: IslandSource[] = [
     title: { en: 'LinkedIn', de: 'LinkedIn' },
     eyebrow: { en: 'The Lighthouse', de: 'Der Leuchtturm' },
     summary: {
-      en: 'The professional light. Tall, so it can be read from the far water.',
-      de: 'Das berufliche Licht. Hoch genug, um es vom fernen Wasser zu lesen.',
+      en: 'Web development at virtic, and computer science at TU Dortmund.',
+      de: 'Webentwicklung bei virtic und Informatik an der TU Dortmund.',
     },
     paragraphs: [
       {
-        en: 'Send the profile link and this island will open it.',
-        de: 'Schick den Profil-Link, dann öffnet diese Insel ihn.',
+        en: 'The profile is the public record of the work and the degree.',
+        de: 'Das Profil ist der öffentliche Nachweis der Arbeit und des Studiums.',
       },
     ],
+    links: [{ label: 'linkedin.com/in/safa--aydin', href: 'https://www.linkedin.com/in/safa--aydin/' }],
     position: [62, 36],
     radius: 9,
     accent: '#3d82f0',
@@ -287,22 +383,41 @@ const sources: IslandSource[] = [
     title: { en: 'Experience', de: 'Erfahrung' },
     eyebrow: { en: 'The Log', de: 'Das Logbuch' },
     summary: {
-      en: 'Where you have sailed for work, and what changed because you were there.',
-      de: 'Wo du für die Arbeit gesegelt bist, und was sich geändert hat, weil du da warst.',
+      en: 'Web development in Dortmund, then content moderation, plus two university internships.',
+      de: 'Webentwicklung in Dortmund, davor Content-Moderation, dazu zwei Praktika im Studium.',
     },
-    paragraphs: [
-      {
-        en: 'Each berth is a record: title, place, dates, and a sentence or two.',
-        de: 'Jeder Liegeplatz ist ein Eintrag: Titel, Ort, Daten und ein, zwei Sätze.',
-      },
-    ],
+    paragraphs: [],
     entries: [
       {
-        title: { en: 'Sample berth', de: 'Beispielhafen' },
-        meta: { en: 'Title · Place · Dates', de: 'Titel · Ort · Daten' },
+        title: { en: 'Working student, web development', de: 'Werkstudent Webentwicklung' },
+        meta: { en: 'virtic GmbH & Co. KG, Dortmund · 06/2025 – present', de: 'virtic GmbH & Co. KG, Dortmund · 06/2025 – heute' },
         text: {
-          en: 'This entry is a draft. The real log comes from you.',
-          de: 'Dieser Eintrag ist ein Entwurf. Das echte Logbuch kommt von dir.',
+          en: 'I build and maintain the company site with WordPress and Elementor Pro, and write HTML, CSS, and JavaScript where the design cannot be done in Elementor alone. That includes sliders with Splide.js and Swiper.js, a sitemap of more than 300 pages, and SEO and GEO with Yoast.',
+          de: 'Ich entwickle und pflege die Unternehmenswebsite mit WordPress und Elementor Pro und schreibe HTML, CSS und JavaScript, wo das Design mit Elementor allein nicht umsetzbar ist. Dazu Slider mit Splide.js und Swiper.js, eine Sitemap mit über 300 Seiten und SEO sowie GEO mit Yoast.',
+        },
+      },
+      {
+        title: { en: 'Content moderator', de: 'Content Moderator' },
+        meta: { en: 'Majorel Dortmund GmbH (Teleperformance) · 03/2023 – 06/2025', de: 'Majorel Dortmund GmbH (Teleperformance) · 03/2023 – 06/2025' },
+        text: {
+          en: 'I reviewed live streams for ByteDance in real time and decided on policy actions, and I reviewed uploaded video against the community guidelines. Unclear cases went to specialist teams by ticket, with a written record for quality review.',
+          de: 'Ich habe Live-Streams für ByteDance in Echtzeit geprüft und bei Richtlinienverstößen entschieden, und hochgeladenes Video nach den Community-Richtlinien eingeordnet. Unklare Fälle gingen per Ticket an Fachteams, mit Dokumentation für die Qualitätssicherung.',
+        },
+      },
+      {
+        title: { en: 'Software internship', de: 'Softwarepraktikum' },
+        meta: { en: 'TU Dortmund · 04/2022 – 07/2022', de: 'TU Dortmund · 04/2022 – 07/2022' },
+        text: {
+          en: 'Requirements and UML, then implementation, tests, and documentation. The course produced two Kotlin games: Schwimmen and Zooloretto.',
+          de: 'Anforderungsaufnahme und UML, dann Implementierung, Test und Dokumentation. Im Praktikum entstanden zwei Spiele in Kotlin: Schwimmen und Zooloretto.',
+        },
+      },
+      {
+        title: { en: 'Hardware internship', de: 'Hardwarepraktikum' },
+        meta: { en: 'TU Dortmund · 10/2020 – 02/2021', de: 'TU Dortmund · 10/2020 – 02/2021' },
+        text: {
+          en: 'Digital circuits in VHDL, built up from gates to adders, memory, and finite automata, then checked in simulation. The course ended by extending a given simple processor.',
+          de: 'Digitale Schaltungen in VHDL, aufgebaut von Gattern bis zu Addierern, Speichern und endlichen Automaten, geprüft in der Simulation. Am Ende stand die Erweiterung eines vorgegebenen einfachen Prozessors.',
         },
       },
     ],
@@ -317,14 +432,20 @@ const sources: IslandSource[] = [
     title: { en: 'Contact', de: 'Kontakt' },
     eyebrow: { en: 'Message in a Bottle', de: 'Flaschenpost' },
     summary: {
-      en: 'Mail, a CV, and any other door you want left open.',
-      de: 'Mail, ein Lebenslauf und jede andere Tür, die offen bleiben soll.',
+      en: 'Email and phone. LinkedIn and GitHub are here as well.',
+      de: 'E-Mail und Telefon. LinkedIn und GitHub stehen auch hier.',
     },
     paragraphs: [
       {
-        en: 'An email, a CV link, and anything else a stranger should use to reach you.',
-        de: 'Eine E-Mail, ein Lebenslauf-Link und alles, womit dich jemand erreichen soll.',
+        en: 'Dortmund.',
+        de: 'Dortmund.',
       },
+    ],
+    links: [
+      { label: 'safaaydin3057@gmail.com', href: 'mailto:safaaydin3057@gmail.com' },
+      { label: '+49 157 39306159', href: 'tel:+4915739306159' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/safa--aydin/' },
+      { label: 'GitHub', href: 'https://github.com/smsmaydi' },
     ],
     position: [42, -51],
     radius: 8,
@@ -335,7 +456,7 @@ const sources: IslandSource[] = [
 
 const uiPack: Record<Locale, Omit<UiCopy, 'locale' | 'near'> & { near: string }> = {
   en: {
-    documentTitle: 'Open Sea — Portfolio',
+    documentTitle: 'Safa Aydin — Open Sea',
     sail: 'WASD or arrow keys',
     look: 'the view follows the pointer',
     lookKey: 'Mouse',
@@ -357,6 +478,7 @@ const uiPack: Record<Locale, Omit<UiCopy, 'locale' | 'near'> & { near: string }>
     volume: 'Volume',
     land: 'Land',
     forward: 'Forward',
+    steer: 'Steer',
     left: 'Left',
     reverse: 'Back',
     right: 'Right',
@@ -366,7 +488,7 @@ const uiPack: Record<Locale, Omit<UiCopy, 'locale' | 'near'> & { near: string }>
     timeLabel: 'Time of day',
   },
   de: {
-    documentTitle: 'Offene See — Portfolio',
+    documentTitle: 'Safa Aydin — Offene See',
     sail: 'WASD oder Pfeiltasten',
     look: 'der Blick folgt dem Zeiger',
     lookKey: 'Maus',
@@ -388,6 +510,7 @@ const uiPack: Record<Locale, Omit<UiCopy, 'locale' | 'near'> & { near: string }>
     volume: 'Lautstärke',
     land: 'Anlegen',
     forward: 'Vor',
+    steer: 'Steuern',
     left: 'Links',
     reverse: 'Zurück',
     right: 'Rechts',

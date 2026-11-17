@@ -322,8 +322,8 @@ export class Ship {
     if (locked) {
       this.speed += (0 - this.speed) * (1 - Math.exp(-4 * dt))
     } else {
-      if (forward > 0) this.speed += TUNE.accel * dt
-      else if (forward < 0) this.speed -= TUNE.brake * dt
+      if (forward > 0) this.speed += TUNE.accel * forward * dt
+      else if (forward < 0) this.speed += TUNE.brake * forward * dt
       else this.speed *= Math.exp(-1.15 * dt)
       this.speed = THREE.MathUtils.clamp(this.speed, -TUNE.reverseSpeed, TUNE.maxSpeed)
 
